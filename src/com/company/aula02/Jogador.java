@@ -1,7 +1,9 @@
 package com.company.aula02;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Random;
 
 public class Jogador {
@@ -23,7 +25,7 @@ public class Jogador {
     public Jogador() {
     }
 
-    public Jogador(int id, String nome, String apelido, LocalDate dataNascimento, int numero, String posicao, int qualidade, int cartoesAmarelos, int cartaoVermelho, boolean suspenso) {
+    public Jogador(int id, String nome, String apelido, LocalDate dataNascimento, int numero, String posicao, int qualidade, int cartoesAmarelos, int cartaoVermelho) {
         this.id = id;
         this.nome = nome;
         this.apelido = apelido;
@@ -33,7 +35,6 @@ public class Jogador {
         this.qualidade = qualidade;
         this.cartoesAmarelos = cartoesAmarelos;
         this.cartaoVermelho = cartaoVermelho;
-        this.suspenso = suspenso;
     }
 
     boolean verificarCondicaoDeJogo(){
@@ -42,7 +43,7 @@ public class Jogador {
             return false;
         } else {
             this.suspenso = false;
-            return  true;
+            return true;
         }
     }
 
@@ -60,7 +61,7 @@ public class Jogador {
     public String toString(){
         return this.posicao + ": " + this.numero + " - "
                 + this.nome + " (" + this.apelido + ") - "
-                + this.dataNascimento + " CONDIÇÃO: " + verificarCondicaoDeJogoToString();
+                + retornarDataComoString(this.dataNascimento) + " CONDIÇÃO: " + verificarCondicaoDeJogoToString();
     }
 
     void aplicarCartaoAmarelo(int quantidade){
@@ -93,16 +94,38 @@ public class Jogador {
         } else if(gravidade <=1){
             this.qualidade = this.qualidade - (int)(this.qualidade * 0.15);
         }
+        verificarQualidade();
+    }
+
+    void verificarQualidade(){
+        if(this.qualidade < 0){
+            this.qualidade = 0;
+        }
     }
 
     void executarTreinamento(){
         if(!this.treinado){
             this.qualidade += random.nextInt(1,4);
             this.treinado = true;
+        } else {
+            System.out.println("Não foi possível realizar treinamento.");
         }
     }
 
     void jogar(){
         this.treinado = false;
     }
+
+
+
+    String retornarDataComoString(LocalDate dataNascimento){
+
+        return dataNascimento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    }
+
+
+//    String dataFormatadaFull = dataNascimento.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL));
+//    String dataFormatadaLong = dataNascimento.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
+//    String dataFormatadaMedium = dataNascimento.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM));
+//    String dataFormatadaShort = dataNascimento.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT));
 }

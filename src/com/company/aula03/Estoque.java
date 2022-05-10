@@ -7,12 +7,21 @@ public class Estoque {
     public String nome;
     private List<Produto> produtos;
     private int id;
-    private static int contador = 1;
+    private static int contadorId = 0;
+
+    private void inicializarId() {
+        contadorId++;
+        this.id = contadorId;
+    }
 
     public Estoque(String nome, List<Produto> produtos) {
         this.nome = nome;
         this.produtos = produtos;
-        this.id = contador++;
+        inicializarId();
+    }
+
+    public Estoque() {
+        inicializarId();
     }
 
     public List<Produto> getProdutos() {
@@ -24,8 +33,18 @@ public class Estoque {
     }
 
     public void listarTodosOsProdutos() {
-        for (Produto produto : produtos) {
-            listarDadosDoProduto(produto);
+        if (produtos.isEmpty()) {
+            System.out.println("A lista está vazia");
+        } else {
+            for (Produto produto : produtos) {
+                listarDadosDoProduto(produto);
+            }
+        }
+    }
+
+    public void adicionarNovoProduto(Produto novoProduto) {
+        if (!verificarSeProdutoJaExisteEAlterarQuantidade(novoProduto)) {
+            produtos.add(novoProduto);
         }
     }
 
@@ -42,14 +61,14 @@ public class Estoque {
         System.out.print("Insira a quantidade do produto em estoque: ");
         produto.setQuantidadeEmEstoque(Integer.parseInt(scanner.nextLine()));
 
-        if (!verificarSeProdutoJaExiste(produto)) {
+        if (!verificarSeProdutoJaExisteEAlterarQuantidade(produto)) {
             System.out.print("Insira a sessão do produto: ");
             produto.setSessao(scanner.nextLine());
 
             System.out.print("Insira o tipo do produto: ");
             produto.setTipo(scanner.nextLine());
             this.produtos.add(produto);
-        } else{
+        } else {
             System.out.println("Produto já existente.");
             System.out.println("Quantidade em estoque atualizada.");
         }
@@ -57,24 +76,34 @@ public class Estoque {
         scanner.close();
     }
 
-    private boolean verificarSeProdutoJaExiste(Produto produto) {
-
-        for (Produto produto1 : produtos)
-            if (produto.getNome().equals(produto1.getNome())) {
-                if (produto.getMarca().equals(produto1.getMarca())) {
-                    produto1.setQuantidadeEmEstoque(produto1.getQuantidadeEmEstoque() + produto.getQuantidadeEmEstoque());
+    private boolean verificarSeProdutoJaExisteEAlterarQuantidade(Produto novoProduto) {
+        for (Produto produto : produtos)
+            if (produto.getNome().equalsIgnoreCase(novoProduto.getNome())) {
+                if (produto.getMarca().equalsIgnoreCase(novoProduto.getMarca())) {
+                    novoProduto.setQuantidadeEmEstoque(novoProduto.getQuantidadeEmEstoque() + produto.getQuantidadeEmEstoque());
                     return true;
                 }
             }
         return false;
     }
 
-    public void deletarProduto(int id) {
+    public void deletarProdutoPorId(int id) {
         for (Produto produto : produtos) {
             if (produto.getId() == id) {
                 produtos.remove((produto.getId() - 1));
+                System.out.println("--------*****--------");
+                System.out.println("Item deletado com sucesso");
                 break;
             }
+        }
+    }
+
+    public void deletarProdutoPorReferencia(Produto produto){
+        if(verificarSimplesSeProdutoExiste(produto)){
+            produtos.remove(produto.getId());
+            System.out.println("Item deletado com sucesso");
+        } else {
+            System.out.println("Não foi possível deletar: produto não existe em estoque");
         }
     }
 
@@ -103,15 +132,27 @@ public class Estoque {
         }
     }
 
-    public void exibirDadosDoProduto(int id) {
-        for (Produto produto : produtos) {
-            if (produto.getId() == id) {
-                listarDadosDoProduto(produto);
-            }
+    public void exibirDadosDoProduto(Produto produto) {
+        if (verificarSimplesSeProdutoExiste(produto)) {
+            listarDadosDoProduto(produto);
+        } else {
+            System.out.println("-------*****-------");
+            System.out.println(produto.getNome() + " não existe no estoque.");
         }
+
     }
 
-    private void listarDadosDoProduto(Produto produto){
+
+    private boolean verificarSimplesSeProdutoExiste(Produto produto) {
+
+        if (produtos.contains(produto)) {
+            return true;
+        }
+        return false;
+    }
+
+
+    private void listarDadosDoProduto(Produto produto) {
         System.out.println("---------------*****---------------");
         System.out.println("Identificador: " + produto.getId());
         System.out.println("Nome: " + produto.getNome());

@@ -8,10 +8,15 @@ public class Produto {
     private int quantidadeEmEstoque;
     private String marca;
     private int id ;
-    private static int contador = 1;
+    private static int contadorId = 0;
 
     public Produto() {
-        this.id = contador++;
+        inicializarId();
+    }
+
+    private void inicializarId(){
+        contadorId++;
+        this.id = contadorId;
     }
 
     public Produto(String nome, String sessao, String tipo, int quantidadeEmEstoque, String marca) {
@@ -20,7 +25,7 @@ public class Produto {
         this.tipo = tipo;
         this.quantidadeEmEstoque = quantidadeEmEstoque;
         this.marca = marca;
-        this.id = contador++;
+        inicializarId();
     }
 
     public int getId() {

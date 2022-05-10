@@ -11,19 +11,22 @@ public class Run {
         Produto produto2 = new Produto("nome2", "sessao2", "tipo2", 15, "marca");
         System.out.println(produto1.getId());
         System.out.println(produto2.getId());
-        List<Produto> produtos = new ArrayList<Produto>();
+        List<Produto> produtos = new ArrayList<>();
         Estoque estoque = new Estoque("nome", produtos);
+        estoque.adicionarNovoProduto(produto1);
+        estoque.adicionarNovoProduto(produto2);
         System.out.println(estoque.getId());
-        produtos.add(produto1);
+        //produtos.add(produto1);
 
-        produtos.add(produto2);
+        //produtos.add(produto2);
         //estoque.inserirNovoProduto();
         estoque.listarTodosOsProdutos();
-        //estoque.deletarProduto(1);
+        estoque.deletarProdutoPorId(produto1.getId());
 
-        estoque.atualizarProduto(1);
+        //estoque.atualizarProduto(1);
         estoque.listarTodosOsProdutos();
-        estoque.exibirDadosDoProduto(1);
+        estoque.exibirDadosDoProduto(produto1);
+        estoque.exibirDadosDoProduto(produto2);
 
     }
 }

@@ -1,5 +1,7 @@
 package com.company.aula04;
 
+import java.util.Scanner;
+
 public class Pessoa {
     protected String nome;
     protected String cpf;
@@ -13,6 +15,7 @@ public class Pessoa {
         this.cpf = cpf;
         this.rg = rg;
     }
+
 
     public String getNome() {
         return nome;

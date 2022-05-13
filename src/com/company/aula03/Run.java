@@ -13,8 +13,8 @@ public class Run {
         System.out.println(produto2.getId());
         List<Produto> produtos = new ArrayList<>();
         Estoque estoque = new Estoque("nome", produtos);
-        estoque.adicionarNovoProduto(produto1);
-        estoque.adicionarNovoProduto(produto2);
+        estoque.adicionarProduto(produto1);
+        estoque.adicionarProduto(produto2);
         System.out.println(estoque.getId());
         //produtos.add(produto1);
 
@@ -27,6 +27,7 @@ public class Run {
         estoque.listarTodosOsProdutos();
         estoque.exibirDadosDoProduto(produto1);
         estoque.exibirDadosDoProduto(produto2);
-
+        estoque.inserirNovoProduto();
+        estoque.listarTodosOsProdutos();
     }
 }

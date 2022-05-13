@@ -42,7 +42,7 @@ public class Estoque {
         }
     }
 
-    public void adicionarNovoProduto(Produto novoProduto) {
+    public void adicionarProduto(Produto novoProduto) {
         if (!verificarSeProdutoJaExisteEAlterarQuantidade(novoProduto)) {
             produtos.add(novoProduto);
         }

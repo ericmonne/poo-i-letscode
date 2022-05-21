@@ -1,4 +1,4 @@
-package com.company.aula05;
+package com.company.aula06;
 
 public class Gigante extends Inimigo {
 
@@ -45,7 +45,7 @@ public class Gigante extends Inimigo {
     }
 
     @Override
-    public void interagir(Protagonista protagonista) {
+    protected void interagir(Protagonista protagonista) {
         System.out.println("-----*****-----");
         System.out.println("Gigante diz: Me desculpe.");
         System.out.println("-----*****-----");
@@ -74,6 +74,13 @@ public class Gigante extends Inimigo {
         if (this.getPontosDeVida() <= 0) {
             this.setVivo(false);
             this.setPontosDeVida(0);
+        }
+    }
+
+    @Override
+    protected void inicializarInteracao(Protagonista protagonista) {
+        if (protagonista.isVivo()) {
+            this.interagir(protagonista);
         }
     }
 

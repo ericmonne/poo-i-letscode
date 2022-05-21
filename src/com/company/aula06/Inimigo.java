@@ -1,8 +1,10 @@
-package com.company.aula05;
+package com.company.aula06;
 
 public abstract class Inimigo {
     Dano dano;
     int pontosDeVida;
+
+
 
     public Inimigo(Dano dano, int pontosDeVida) {
         this.dano = dano;
@@ -12,13 +14,16 @@ public abstract class Inimigo {
     public Inimigo() {
     }
 
+
     protected abstract void atacar(Protagonista protagonista);
 
     protected abstract void apanhar(Protagonista protagonista) ;
 
-    protected abstract void interagir(Protagonista protagonista);
+    abstract void interagir(Protagonista protagonista);
 
     protected abstract void verificarVida();
+
+    protected abstract void inicializarInteracao(Protagonista protagonista);
 
     public int getPontosDeVida() {
         return pontosDeVida;

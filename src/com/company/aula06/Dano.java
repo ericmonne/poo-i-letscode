@@ -1,4 +1,4 @@
-package com.company.aula05;
+package com.company.aula06;
 
 public class Dano {
     protected int valor;

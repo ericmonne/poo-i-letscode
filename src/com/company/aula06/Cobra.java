@@ -1,4 +1,4 @@
-package com.company.aula05;
+package com.company.aula06;
 
 import java.util.Random;
 
@@ -50,7 +50,7 @@ public class Cobra extends Inimigo {
     }
 
     @Override
-    public void interagir(Protagonista protagonista) {
+    protected void interagir(Protagonista protagonista) {
         System.out.println("-----*****-----");
         System.out.println("Cobra diz: Se você acender a chama, a maldição acaba.");
         System.out.println("-----*****-----");
@@ -61,6 +61,13 @@ public class Cobra extends Inimigo {
         if (this.getPontosDeVida() <= 0) {
             this.setVivo(false);
             this.setPontosDeVida(0);
+        }
+    }
+
+    @Override
+    protected void inicializarInteracao(Protagonista protagonista) {
+        if (protagonista.isVivo()) {
+            this.interagir(protagonista);
         }
     }
 

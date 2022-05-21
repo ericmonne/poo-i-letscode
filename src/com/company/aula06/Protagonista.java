@@ -1,4 +1,4 @@
-package com.company.aula05;
+package com.company.aula06;
 
 import java.util.Random;
 
@@ -62,7 +62,7 @@ public class Protagonista {
         if(this.getPontosDeVida()<=0){
             this.setVivo(false);
             this.setPontosDeVida(0);
-            System.out.println("Você perdeu! Fim de jogo!");
+            System.out.println("Você morreu! Fim de jogo!");
         }
     }
 

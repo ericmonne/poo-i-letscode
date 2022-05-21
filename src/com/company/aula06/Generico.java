@@ -1,4 +1,4 @@
-package com.company.aula05;
+package com.company.aula06;
 
 public class Generico extends Inimigo {
 
@@ -40,7 +40,7 @@ public class Generico extends Inimigo {
     }
 
     @Override
-    public void interagir(Protagonista protagonista) {
+    protected void interagir(Protagonista protagonista) {
         System.out.println("-----*****-----");
         System.out.println("Inimigo diz: Por que eu responderia meu inimigo???");
         System.out.println("-----*****-----");
@@ -52,6 +52,13 @@ public class Generico extends Inimigo {
         if (this.getPontosDeVida() <= 0) {
             this.setVivo(false);
             this.setPontosDeVida(0);
+        }
+    }
+
+    @Override
+    protected void inicializarInteracao(Protagonista protagonista) {
+        if (protagonista.isVivo()) {
+            this.interagir(protagonista);
         }
     }
 
